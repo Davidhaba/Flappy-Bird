@@ -13179,36 +13179,41 @@
   new TextEncoder();
   class wt {
     constructor(e, t) {
-      (this.canvas = e),
-        (this.ctx = t),
-        (this.gameState = 'menu'),
-        (this.score = 0),
-        (this.highScore = parseInt(localStorage.getItem('flappyBirdHighScore') || '0')),
-        (this.gameOverAnimationFrame = 0),
-        (this.particles = []),
-        (this.bird = {
-          x: 80,
-          y: 200,
-          width: 30,
-          height: 25,
-          velocityY: 0,
-          gravity: 0.6,
-          jumpPower: -12,
-          color: '#FFD700',
-          rotation: 0,
-        }),
-        (this.pipes = []),
-        (this.pipeWidth = 70),
-        (this.pipeGap = 160),
-        (this.pipeSpeed = 3),
-        (this.pipeSpawnRate = 90),
-        (this.frameCount = 0),
-        (this.backgroundColor = '#87CEEB'),
-        (this.groundHeight = 60),
-        (this.groundColor = '#DEB887'),
-        (this.groundPattern = 0),
-        (this.clouds = this.generateClouds()),
-        this.setupEventListeners();
+      this.canvas = e;
+      this.ctx = t;
+      this.gameState = 'menu';
+      this.score = 0;
+      this.highScore = '0';
+      try {
+        this.highScore = parseInt(localStorage.getItem('flappyBirdHighScore') || '0');
+      } catch (e) {
+        this.highScore = '0';
+      }
+      this.gameOverAnimationFrame = 0;
+      this.particles = [];
+      this.bird = {
+        x: 80,
+        y: 200,
+        width: 30,
+        height: 25,
+        velocityY: 0,
+        gravity: 0.6,
+        jumpPower: -12,
+        color: '#FFD700',
+        rotation: 0,
+      };
+      this.pipes = [];
+      this.pipeWidth = 70;
+      this.pipeGap = 160;
+      this.pipeSpeed = 3;
+      this.pipeSpawnRate = 90;
+      this.frameCount = 0;
+      this.backgroundColor = '#87CEEB';
+      this.groundHeight = 60;
+      this.groundColor = '#DEB887';
+      this.groundPattern = 0;
+      this.clouds = this.generateClouds();
+      this.setupEventListeners();
     }
     generateClouds() {
       const e = [];
@@ -13360,10 +13365,13 @@
     gameOver() {
       (this.gameState = 'gameOver'),
         (this.gameOverAnimationFrame = 0),
-        this.generateParticles(),
-        this.score > this.highScore &&
-          ((this.highScore = this.score),
-          localStorage.setItem('flappyBirdHighScore', this.highScore.toString()));
+        this.generateParticles();
+        if (this.score > this.highScore) {
+          this.highScore = this.score;
+          try {
+            localStorage.setItem('flappyBirdHighScore', this.highScore.toString());
+          } catch (e) {}
+        }
     }
     render() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
