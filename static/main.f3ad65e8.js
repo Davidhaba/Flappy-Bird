@@ -12077,7 +12077,7 @@
   }
   function ze(e) {
     let {
-      basename: t = '/',
+      basename: t = '/Flappy-Bird',
       children: n = null,
       location: a,
       navigationType: l = 'POP',
@@ -13866,7 +13866,7 @@
     return (0, Tt.jsx)('div', {
       className: 'App',
       children: (0, Tt.jsx)(ft, {
-        basename: '/',
+        basename: '/Flappy-Bird',
         children: (0, Tt.jsx)(Le, {
           children: (0, Tt.jsx)(_e, { path: '/', element: (0, Tt.jsx)(Ot, {}) }),
         }),
